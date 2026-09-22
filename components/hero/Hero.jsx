@@ -435,7 +435,7 @@ export default function Hero() {
             >
               <Sparkles className="h-3.5 w-3.5" />
             </motion.span>
-            <span className="relative">Software Development Partner</span>
+            <span className="relative">Software Development & Marketing Services</span>
           </motion.span>
 
           {/* Heading */}
