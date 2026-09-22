@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   ShieldCheck,
+  Sparkles,
   TrendingUp,
   Users,
 } from "lucide-react";
@@ -45,10 +47,66 @@ const PARTICLES = [
   { top: "80%", left: "72%", size: 2, delay: 0.9, duration: 8.5 },
   { top: "16%", left: "40%", size: 2, delay: 2, duration: 9.5 },
   { top: "48%", left: "30%", size: 2, delay: 1.4, duration: 8 },
+  { top: "28%", left: "12%", size: 2, delay: 0.5, duration: 8.8 },
+  { top: "62%", left: "88%", size: 3, delay: 1.9, duration: 7.2 },
 ];
+
+// AI neural-network style nodes (percentage positions on a 0-100 grid)
+const NODES = [
+  { x: 8, y: 20 },
+  { x: 22, y: 12 },
+  { x: 34, y: 30 },
+  { x: 18, y: 42 },
+  { x: 46, y: 18 },
+  { x: 55, y: 38 },
+  { x: 40, y: 55 },
+  { x: 65, y: 22 },
+  { x: 72, y: 45 },
+  { x: 60, y: 62 },
+  { x: 82, y: 30 },
+  { x: 88, y: 58 },
+  { x: 78, y: 70 },
+  { x: 30, y: 68 },
+  { x: 14, y: 78 },
+];
+
+// Pairs of node indices to connect with lines
+const NODE_LINKS = [
+  [0, 1], [1, 2], [2, 3], [0, 3], [1, 4], [4, 5], [2, 5],
+  [5, 6], [3, 6], [4, 7], [7, 8], [5, 8], [8, 9], [6, 9],
+  [7, 10], [10, 11], [8, 11], [11, 12], [9, 12], [3, 13],
+  [6, 13], [13, 9], [13, 14],
+];
+
+function useCountUp(target, decimals = 1, duration = 1600, delay = 700) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    let raf;
+    let start;
+    const timeout = setTimeout(() => {
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(target * eased);
+        if (progress < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [target, duration, delay]);
+
+  return value.toFixed(decimals);
+}
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const growth = useCountUp(84.6, 1, 1800, 900);
 
   const float = (
     delay = 0,
@@ -94,6 +152,137 @@ export default function Hero() {
         "
       />
 
+      {/* Royal rotating aura (soft, no dots) — replaces old starfield */}
+      {!shouldReduceMotion && (
+        <motion.div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            left-1/2
+            top-1/2
+            h-[70rem]
+            w-[70rem]
+            -translate-x-1/2
+            -translate-y-1/2
+            opacity-30
+            blur-[60px]
+          "
+          style={{
+            background:
+              "conic-gradient(from 0deg, rgba(245,196,81,0.12), transparent 20%, rgba(99,102,241,0.14) 45%, transparent 65%, rgba(245,196,81,0.1) 85%, transparent 100%)",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        />
+      )}
+
+      {/* AI neural-network layer — connecting nodes, royal gold/indigo, trending "AI" motif */}
+      {!shouldReduceMotion && (
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.35]"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="nodeLineGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#f5c451" stopOpacity="0.6" />
+              <stop offset="50%" stopColor="#818cf8" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#f5c451" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+
+          {NODE_LINKS.map(([a, b], i) => {
+            const nA = NODES[a];
+            const nB = NODES[b];
+            return (
+              <motion.line
+                key={`link-${i}`}
+                x1={nA.x}
+                y1={nA.y}
+                x2={nB.x}
+                y2={nB.y}
+                stroke="url(#nodeLineGradient)"
+                strokeWidth="0.15"
+                initial={{ opacity: 0.1 }}
+                animate={{ opacity: [0.1, 0.5, 0.1] }}
+                transition={{
+                  duration: 4 + (i % 5),
+                  delay: i * 0.15,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            );
+          })}
+
+          {NODES.map((n, i) => (
+            <motion.circle
+              key={`node-${i}`}
+              cx={n.x}
+              cy={n.y}
+              r="0.45"
+              fill={i % 3 === 0 ? "#f5c451" : "#a5b4fc"}
+              animate={{
+                opacity: [0.4, 1, 0.4],
+                r: [0.35, 0.6, 0.35],
+              }}
+              transition={{
+                duration: 3 + (i % 4),
+                delay: i * 0.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </svg>
+      )}
+
+      {/* Diagonal gold shine sweep */}
+      {!shouldReduceMotion && (
+        <motion.div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            -inset-y-1/2
+            left-[-20%]
+            w-1/3
+            rotate-12
+            bg-gradient-to-r
+            from-transparent
+            via-gold-200/10
+            to-transparent
+          "
+          animate={{ left: ["-20%", "120%"] }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            repeatDelay: 4,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+
+      {/* Royal corner ornaments */}
+      <div
+        aria-hidden="true"
+        className="absolute left-6 top-6 h-10 w-10 border-l border-t border-gold-300/25 sm:left-10 sm:top-10"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute right-6 top-6 h-10 w-10 border-r border-t border-gold-300/25 sm:right-10 sm:top-10"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-6 left-6 hidden h-10 w-10 border-b border-l border-gold-300/15 lg:block lg:left-10 lg:bottom-10"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-6 right-6 hidden h-10 w-10 border-b border-r border-gold-300/15 lg:block lg:right-10 lg:bottom-10"
+      />
+
       {/* Moving blue glow */}
       {!shouldReduceMotion && (
         <motion.div
@@ -120,7 +309,33 @@ export default function Hero() {
         />
       )}
 
-      {/* Floating particles */}
+      {/* Moving gold glow (adds royal warmth on the left) */}
+      {!shouldReduceMotion && (
+        <motion.div
+          aria-hidden="true"
+          className="
+            absolute
+            -left-24
+            bottom-0
+            h-[24rem]
+            w-[24rem]
+            rounded-full
+            bg-gold-400/10
+            blur-3xl
+          "
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+
+      {/* Floating gold particles (kept — small drifting sparkles, not a fixed ring) */}
       {!shouldReduceMotion &&
         PARTICLES.map((particle, i) => (
           <motion.span
@@ -174,12 +389,14 @@ export default function Hero() {
           <motion.span
             variants={itemVariants}
             className="
+              relative
               inline-flex
               items-center
               gap-2
+              overflow-hidden
               rounded-full
               border
-              border-white/15
+              border-gold-300/25
               bg-white/5
               px-4
               py-1.5
@@ -190,7 +407,35 @@ export default function Hero() {
               text-gold-300
             "
           >
-            Software Development Partner
+            {!shouldReduceMotion && (
+              <motion.span
+                aria-hidden="true"
+                className="absolute -inset-1 rounded-full bg-gold-300/10 blur-md"
+                animate={{ opacity: [0.2, 0.6, 0.2] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+            )}
+            {!shouldReduceMotion && (
+              <motion.span
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-200/20 to-transparent"
+                animate={{ x: ["-100%", "200%"] }}
+                transition={{
+                  duration: 3.5,
+                  repeat: Infinity,
+                  repeatDelay: 2,
+                  ease: "easeInOut",
+                }}
+              />
+            )}
+            <motion.span
+              animate={shouldReduceMotion ? undefined : { rotate: [0, 15, -10, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative flex"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+            </motion.span>
+            <span className="relative">Software Development Partner</span>
           </motion.span>
 
           {/* Heading */}
@@ -204,12 +449,30 @@ export default function Hero() {
               font-semibold
               leading-[1.1]
               tracking-tight
-              text-white
               sm:text-5xl
               lg:text-[3.4rem]
             "
           >
-            Digital Experiences Built for Business Growth.
+            <span className="text-white">Digital Experiences Built for </span>
+            <motion.span
+              className="
+                bg-gradient-to-r
+                from-gold-200
+                via-gold-400
+                to-gold-200
+                bg-clip-text
+                text-transparent
+              "
+              style={{ backgroundSize: "200% auto" }}
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : { backgroundPosition: ["0% center", "200% center"] }
+              }
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            >
+              Business Growth.
+            </motion.span>
           </motion.h1>
 
           {/* Description */}
@@ -372,20 +635,40 @@ export default function Hero() {
               MAIN GLASS DASHBOARD
           ====================================================== */}
 
-          <motion.div
-            {...float(0, 8, 7)}
-            className="
-              relative
-              overflow-hidden
-              rounded-3xl
-              border
-              border-white/10
-              bg-white/[0.045]
-              p-5
-              shadow-[0_30px_100px_-20px_rgba(0,0,0,0.65)]
-              backdrop-blur-xl
-            "
-          >
+          <div className="relative">
+            {/* Rotating royal gradient ring */}
+            {!shouldReduceMotion && (
+              <motion.div
+                aria-hidden="true"
+                className="absolute -inset-[1.5px] rounded-3xl"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, transparent 0%, rgba(245,196,81,0.9) 8%, transparent 22%, transparent 55%, rgba(99,102,241,0.7) 68%, transparent 85%, transparent 100%)",
+                  WebkitMask:
+                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                  padding: "1.5px",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              />
+            )}
+
+            <motion.div
+              {...float(0, 8, 7)}
+              className="
+                relative
+                overflow-hidden
+                rounded-3xl
+                border
+                border-white/10
+                bg-white/[0.045]
+                p-5
+                shadow-[0_30px_100px_-20px_rgba(0,0,0,0.65)]
+                backdrop-blur-xl
+              "
+            >
             {/* Animated top line */}
             <motion.div
               aria-hidden="true"
@@ -413,6 +696,30 @@ export default function Hero() {
                 ease: "easeInOut",
               }}
             />
+
+            {/* AI scanning sweep — vertical light pass, like a system reading live data */}
+            {!shouldReduceMotion && (
+              <motion.div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-y-0
+                  w-24
+                  bg-gradient-to-r
+                  from-transparent
+                  via-indigo-300/10
+                  to-transparent
+                "
+                animate={{ left: ["-15%", "115%"] }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "easeInOut",
+                }}
+              />
+            )}
 
             {/* =================================================
                 DASHBOARD HEADER
@@ -481,7 +788,7 @@ export default function Hero() {
                     text-white
                   "
                 >
-                  +84.6%
+                  +{growth}%
                 </div>
 
                 <div
@@ -768,12 +1075,10 @@ export default function Hero() {
                   99.9%
                 </div>
 
-                <div className="mt-1 text-xs text-white/40">
-                  System uptime
-                </div>
               </motion.div>
             </div>
           </motion.div>
+          </div>
 
           {/* =====================================================
               FLOATING CARD — CONVERSION
