@@ -10,6 +10,7 @@ import PricingSection from "@/components/pricing/PricingSection";
 import FAQSection from "@/components/faq/FAQSection";
 import ContactSection from "@/components/contact/ContactSection";
 import FinalCTA from "@/components/cta/FinalCTA";
+import InstagramSection from "@/components/instagram/InstagramSection";
 
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
       <FAQSection />
       <ContactSection />
       <FinalCTA />
+      <InstagramSection />
     </>
   );
 }

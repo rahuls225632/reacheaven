@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { Mail, Phone, MapPin, Sparkles } from "lucide-react";
+import { Mail, Phone, Sparkles } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
 import { footerColumns } from "@/data/nav";
@@ -210,9 +210,6 @@ export default function Footer() {
             <a href={telHref()} className="flex items-center gap-2 hover:text-gold-300">
               <Phone className="h-4 w-4" /> {siteConfig.phoneDisplay}
             </a>
-            {/* <span className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" /> {siteConfig.location}
-            </span> */}
           </div>
         </div>
 

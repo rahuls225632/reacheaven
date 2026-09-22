@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Button from "@/components/ui/Button";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { services } from "@/data/services";
 import { businessTypes, budgetOptions } from "@/data/contact-options";
 import { whatsappHref } from "@/lib/config";
@@ -187,12 +188,9 @@ export default function ContactForm() {
 
       {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
 
-      <Button type="submit" variant="primary" size="lg" className="mt-6 w-full sm:w-auto" icon={MessageCircle}>
+      <Button type="submit" variant="primary" size="lg" className="mt-6 w-full sm:w-auto" icon={WhatsAppIcon}>
         Request a Free Consultation
       </Button>
-      <p className="mt-3 text-xs text-slate-soft">
-        Sends your details to us on WhatsApp — no account or sign-up needed.
-      </p>
     </form>
   );
 }

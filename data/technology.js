@@ -15,6 +15,7 @@ export const technologyGroups = [
       { name: "Node.js", icon: "Server" },
       { name: "Express", icon: "Route" },
       { name: "REST APIs", icon: "Webhook" },
+      { name: "GraphQL", icon: "Share2" },
     ],
   },
   {
@@ -37,6 +38,7 @@ export const technologyGroups = [
     title: "DevOps & Cloud",
     items: [
       { name: "Docker", icon: "Container" },
+      { name: "Nginx", icon: "Router" },
       { name: "CI/CD", icon: "Rocket" },
       { name: "Cloud Hosting", icon: "Cloud" },
       { name: "Monitoring", icon: "Cpu" },

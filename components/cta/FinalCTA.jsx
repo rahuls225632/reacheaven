@@ -1,4 +1,5 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
@@ -24,7 +25,7 @@ export default function FinalCTA() {
             <Button href="/contact" variant="gold" size="lg" icon={ArrowRight}>
               Start Your Project
             </Button>
-            <Button href={whatsappHref()} external variant="outline-dark" size="lg" icon={MessageCircle}>
+            <Button href={whatsappHref()} external variant="outline-dark" size="lg" icon={WhatsAppIcon}>
               WhatsApp Us
             </Button>
           </div>

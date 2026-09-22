@@ -2,7 +2,7 @@ export const pricingTiers = [
   {
     name: "Starter",
     audience: "For small businesses",
-    startingFrom: "Starting from ₹20,000",
+    startingFrom: "Starting from ₹10,000",
     description:
       "A focused, professional website that gives your business a credible presence online.",
     features: [
@@ -18,7 +18,7 @@ export const pricingTiers = [
   {
     name: "Business",
     audience: "For growing companies",
-    startingFrom: "Starting from ₹50,000",
+    startingFrom: "Starting from ₹25,000",
     description:
       "A larger, more capable website with integrations for businesses actively generating leads or sales online.",
     features: [

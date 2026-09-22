@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, Clock } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
@@ -188,7 +188,6 @@ export default function ContactSection() {
             <div className="space-y-6">
               <InfoRow icon={Mail} label="Email" value={siteConfig.email} href={mailHref()} />
               <InfoRow icon={Phone} label="Phone" value={siteConfig.phoneDisplay} href={telHref()} />
-              <InfoRow icon={MapPin} label="Location" value={siteConfig.location} />
               <InfoRow icon={Clock} label="Business Hours" value={siteConfig.businessHours} />
             </div>
           </Reveal>

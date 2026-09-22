@@ -1,6 +1,7 @@
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, Clock } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ContactForm from "@/components/contact/ContactForm";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { siteConfig, mailHref, telHref, whatsappHref } from "@/lib/config";
 
 export const metadata = {
@@ -32,13 +33,12 @@ export default function ContactPage() {
             <InfoRow icon={Mail} label="Email" value={siteConfig.email} href={mailHref()} />
             <InfoRow icon={Phone} label="Phone" value={siteConfig.phoneDisplay} href={telHref()} />
             <InfoRow
-              icon={Phone}
+              icon={WhatsAppIcon}
               label="WhatsApp"
               value="Chat with us directly"
               href={whatsappHref()}
               external
             />
-            <InfoRow icon={MapPin} label="Location" value={siteConfig.location} />
             <InfoRow icon={Clock} label="Business Hours" value={siteConfig.businessHours} />
           </div>
 

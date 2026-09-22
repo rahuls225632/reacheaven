@@ -12,11 +12,6 @@ export function organizationJsonLd() {
     url: siteConfig.url,
     email: siteConfig.email,
     telephone: siteConfig.phoneE164,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: siteConfig.location,
-      addressCountry: "IN",
-    },
   };
 }
 
