@@ -1,9 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { ChevronRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+import Icon from "@/components/ui/Icon";
 import { processSteps } from "@/data/process";
 
 // AI neural-network style nodes (percentage positions on a 0-100 grid)
@@ -36,6 +38,34 @@ const NODE_LINKS = [
   [5, 15], [13, 14], [14, 15], [15, 16], [8, 16], [16, 17],
   [11, 17], [17, 18],
 ];
+
+// Per-step accent palette — soft tinted card + matching icon badge.
+const STEP_STYLES = {
+  emerald: {
+    card: "border-emerald-100 bg-emerald-50/70",
+    label: "text-emerald-600",
+    icon: "bg-emerald-500 text-white shadow-emerald-500/30",
+    glow: "bg-emerald-400/25",
+  },
+  sky: {
+    card: "border-sky-100 bg-sky-50/70",
+    label: "text-sky-600",
+    icon: "bg-sky-500 text-white shadow-sky-500/30",
+    glow: "bg-sky-400/25",
+  },
+  amber: {
+    card: "border-amber-100 bg-amber-50/70",
+    label: "text-amber-600",
+    icon: "bg-amber-500 text-white shadow-amber-500/30",
+    glow: "bg-amber-400/25",
+  },
+  teal: {
+    card: "border-teal-100 bg-teal-50/70",
+    label: "text-teal-600",
+    icon: "bg-teal-500 text-white shadow-teal-500/30",
+    glow: "bg-teal-400/25",
+  },
+};
 
 export default function ProcessTimeline() {
   const shouldReduceMotion = useReducedMotion();
@@ -209,116 +239,77 @@ export default function ProcessTimeline() {
 
       <Container className="relative">
         <SectionHeading
-          eyebrow="Our Process"
-          title="From Idea to Launch"
-          description="A clear, six-step process so you always know what happens next."
+          eyebrow="Simple Process"
+          title="4 Easy Steps to Your Website"
+          description="From your first message to a live website in just a few days."
         />
 
-        <div className="relative mt-16">
-          {/* Static track line */}
-          <div
-            aria-hidden="true"
-            className="absolute left-4 top-0 hidden h-full w-px bg-line lg:left-1/2 lg:block"
-          />
+        <div className="relative mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {processSteps.map((step, index) => {
+            const style = STEP_STYLES[step.color] || STEP_STYLES.sky;
+            const isLast = index === processSteps.length - 1;
 
-          {/* Animated gold line that grows as you scroll through the timeline */}
-          {!shouldReduceMotion && (
-            <motion.div
-              aria-hidden="true"
-              className="
-                absolute left-4 top-0 hidden w-px origin-top
-                bg-gradient-to-b from-gold-400 via-gold-500 to-royal-500
-                lg:left-1/2 lg:block
-              "
-              style={{ height: "100%" }}
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-            />
-          )}
-
-          <ol className="space-y-10 lg:space-y-16">
-            {processSteps.map((step, index) => {
-              const isEven = index % 2 === 1;
-              return (
-                <li key={step.number} className="relative lg:grid lg:grid-cols-2 lg:gap-12">
-                  <Reveal
-                    className={
-                      isEven
-                        ? "lg:col-start-2"
-                        : "lg:col-start-1 lg:row-start-1 lg:text-right"
-                    }
-                  >
-                    <div className="flex items-start gap-4 lg:block">
-                      <span className="font-display text-3xl font-bold text-royal-600/20 lg:hidden">
-                        {step.number}
-                      </span>
-                      <div>
-                        <motion.span
-                          className="
-                            hidden
-                            bg-gradient-to-r from-gold-300 via-gold-500 to-gold-300
-                            bg-clip-text
-                            font-display text-4xl font-bold text-transparent
-                            opacity-40
-                            lg:inline-block
-                          "
-                          style={{ backgroundSize: "200% auto" }}
-                          animate={
-                            shouldReduceMotion
-                              ? undefined
-                              : { backgroundPosition: ["0% center", "200% center"] }
-                          }
-                          transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            ease: "linear",
-                            delay: index * 0.2,
-                          }}
-                        >
-                          {step.number}
-                        </motion.span>
-                        <h3 className="mt-1 font-display text-xl font-semibold text-ink">
-                          {step.title}
-                        </h3>
-                        <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate lg:ml-auto">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </Reveal>
-
-                  {/* Marker dot with pulsing royal-gold glow */}
+            return (
+              <Reveal key={step.number} delay={Math.min(index * 0.12, 0.4)} className="relative">
+                <div
+                  className={`group relative h-full rounded-2xl border p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-18px_rgba(11,18,32,0.25)] ${style.card}`}
+                >
                   <span
-                    aria-hidden="true"
-                    className="
-                      absolute left-4 top-1.5 hidden h-3 w-3 -translate-x-1/2
-                      lg:left-1/2 lg:block
-                    "
+                    className={`text-xs font-bold uppercase tracking-[0.2em] ${style.label}`}
                   >
+                    Step {step.number}
+                  </span>
+
+                  <div className="relative mx-auto mt-4 flex h-14 w-14 items-center justify-center">
                     {!shouldReduceMotion && (
                       <motion.span
                         aria-hidden="true"
-                        className="absolute inset-0 -m-1.5 rounded-full bg-gold-400/30 blur-sm"
-                        animate={{
-                          opacity: [0.3, 0.9, 0.3],
-                          scale: [0.9, 1.4, 0.9],
-                        }}
+                        className={`absolute inset-0 rounded-full ${style.glow} blur-md`}
+                        animate={{ scale: [0.9, 1.25, 0.9], opacity: [0.5, 0.9, 0.5] }}
                         transition={{
-                          duration: 2.4,
-                          delay: index * 0.25,
+                          duration: 3,
+                          delay: index * 0.3,
                           repeat: Infinity,
                           ease: "easeInOut",
                         }}
                       />
                     )}
-                    <span className="relative block h-3 w-3 rounded-full border-2 border-gold-500 bg-white" />
-                  </span>
-                </li>
-              );
-            })}
-          </ol>
+                    <motion.div
+                      initial={shouldReduceMotion ? undefined : { scale: 0.7, opacity: 0 }}
+                      whileInView={shouldReduceMotion ? undefined : { scale: 1, opacity: 1 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{
+                        duration: 0.45,
+                        delay: index * 0.12 + 0.1,
+                        ease: [0.34, 1.56, 0.64, 1],
+                      }}
+                      className={`relative flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform duration-300 group-hover:scale-105 ${style.icon}`}
+                    >
+                      <Icon name={step.icon} className="h-6 w-6" aria-hidden="true" />
+                    </motion.div>
+                  </div>
+
+                  <h3 className="mt-5 font-display text-lg font-semibold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate">
+                    {step.description}
+                  </p>
+                </div>
+
+                {!isLast && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute top-1/2 -right-4 z-10 hidden -translate-y-1/2 items-center justify-center lg:-right-7 lg:flex"
+                  >
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-line bg-white text-slate-soft shadow-sm">
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>

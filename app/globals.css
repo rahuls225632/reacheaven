@@ -92,6 +92,34 @@ body {
   box-shadow: 0 0 0 3px rgba(44, 75, 176, 0.15);
 }
 
+@keyframes popupOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popup-overlay-in {
+  animation: popupOverlayIn 0.25s ease-out forwards;
+}
+
+.popup-card-in {
+  animation: popupCardIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

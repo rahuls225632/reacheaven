@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Check } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
+import PackageDetailsModal from "@/components/pricing/PackageDetailsModal";
 import { cn } from "@/lib/cn";
 import { pricingTiers, pricingNote } from "@/data/pricing";
 
@@ -48,6 +50,7 @@ const CURRENCY = [
 
 export default function PricingSection() {
   const shouldReduceMotion = useReducedMotion();
+  const [selectedTier, setSelectedTier] = useState(null);
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-white py-24">
@@ -275,11 +278,12 @@ export default function PricingSection() {
                   </ul>
 
                   <Button
-                    href="/contact"
+                    type="button"
+                    onClick={() => setSelectedTier(tier)}
                     variant={tier.highlighted ? "gold" : "outline"}
                     className="mt-8 w-full"
                   >
-                    Get a Custom Quote
+                    View Package Details
                   </Button>
                 </div>
               </div>
@@ -289,6 +293,8 @@ export default function PricingSection() {
 
         <p className="mx-auto mt-8 max-w-xl text-center text-xs text-slate-soft">{pricingNote}</p>
       </Container>
+
+      <PackageDetailsModal tier={selectedTier} onClose={() => setSelectedTier(null)} />
     </section>
   );
 }

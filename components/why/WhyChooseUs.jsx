@@ -214,10 +214,16 @@ export default function WhyChooseUs() {
       <Container className="relative">
         <SectionHeading eyebrow="Why Us" title="Why Businesses Choose Us" />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {whyChooseUs.map((item, index) => (
-            <Reveal key={item.title} delay={Math.min(index * 0.05, 0.3)}>
-              <IconCard icon={item.icon} title={item.title} description={item.description} className="bg-white" />
+            <Reveal key={item.title} delay={Math.min(index * 0.08, 0.4)} y={20}>
+              <IconCard
+                icon={item.icon}
+                title={item.title}
+                description={item.description}
+                color={item.color}
+                className="bg-white"
+              />
             </Reveal>
           ))}
         </div>

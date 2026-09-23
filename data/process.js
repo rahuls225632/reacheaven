@@ -1,32 +1,30 @@
 export const processSteps = [
   {
     number: "01",
-    title: "Discovery",
-    description: "Understand the business, audience and goals.",
+    title: "Message Us",
+    description: "Share your business details on WhatsApp or our contact form to get started.",
+    icon: "MessageCircle",
+    color: "emerald",
   },
   {
     number: "02",
-    title: "Strategy",
-    description: "Plan the structure, features and technology.",
+    title: "Get a Free Demo",
+    description: "We design your homepage first — you see exactly what you're getting before you pay.",
+    icon: "MonitorSmartphone",
+    color: "sky",
   },
   {
     number: "03",
-    title: "UI/UX Design",
-    description: "Create the visual experience and user journey.",
+    title: "Approve & Confirm",
+    description: "Happy with the demo? Confirm the scope and we lock in your project.",
+    icon: "CheckCircle2",
+    color: "amber",
   },
   {
     number: "04",
-    title: "Development",
-    description: "Build the website or application.",
-  },
-  {
-    number: "05",
-    title: "Testing & Launch",
-    description: "Test responsiveness, performance, forms and functionality.",
-  },
-  {
-    number: "06",
-    title: "Support",
-    description: "3 months of free post-launch support and maintenance.",
+    title: "Launch & Grow",
+    description: "Your website goes live, and we stick around to support you as your business grows.",
+    icon: "Rocket",
+    color: "teal",
   },
 ];
