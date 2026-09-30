@@ -303,7 +303,7 @@ export default function AiPreview() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={40}
-                placeholder="e.g. Sunrise Residency"
+                placeholder="ReacHeaven Platform"
                 autoComplete="organization"
                 className="form-input mt-2 !text-base sm:!text-sm"
               />
