@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer/Footer";
 import WhatsAppButton from "@/components/whatsapp/WhatsAppButton";
+import ChatBot from "@/components/chatbot/ChatBot";
 import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/config";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <ChatBot />
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       </body>
     </html>

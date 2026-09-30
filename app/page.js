@@ -1,6 +1,7 @@
 import Hero from "@/components/hero/Hero";
 import TrustStrip from "@/components/trust/TrustStrip";
 import ServicesSection from "@/components/services/ServicesSection";
+import AiPreview from "@/components/ai/AiPreview";
 import OfferSection from "@/components/offer/OfferSection";
 import WhyChooseUs from "@/components/why/WhyChooseUs";
 import ProcessTimeline from "@/components/process/ProcessTimeline";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <ServicesSection />
+      <AiPreview />
       <OfferSection />
       <WhyChooseUs />
       <ProcessTimeline />

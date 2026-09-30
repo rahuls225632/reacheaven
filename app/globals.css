@@ -102,3 +102,31 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- ReacHeaven chat widget ---- */
+@keyframes rh-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rh-pop {
+  animation: rh-pop 0.22s ease-out both;
+}
+
+.rh-chat-scroll {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rh-chips-row {
+  scrollbar-width: none;
+}
+.rh-chips-row::-webkit-scrollbar {
+  display: none;
+}
