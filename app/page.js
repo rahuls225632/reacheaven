@@ -5,6 +5,7 @@ import AiPreview from "@/components/ai/AiPreview";
 import OfferSection from "@/components/offer/OfferSection";
 import WhyChooseUs from "@/components/why/WhyChooseUs";
 import ProcessTimeline from "@/components/process/ProcessTimeline";
+import LiveProjects from "@/components/projects/LiveProjects";
 import WhatWeCanBuild from "@/components/showcase/WhatWeCanBuild";
 import TechStack from "@/components/technology/TechStack";
 import PricingSection from "@/components/pricing/PricingSection";
@@ -23,6 +24,7 @@ export default function HomePage() {
       <OfferSection />
       <WhyChooseUs />
       <ProcessTimeline />
+      <LiveProjects />
       <WhatWeCanBuild />
       <TechStack />
       <PricingSection />
